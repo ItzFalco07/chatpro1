@@ -1,40 +1,29 @@
 const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
 const app = express();
-const PORT = process.env.PORT || 4000
-const http = require('http').createServer(app);
+const server = http.createServer(app);
+const io = new Server(server);
 
-app.use(express.static(__dirname + '/../public'))
-
-
-http.listen(PORT, () => {
-    console.log(`server is running on port: ${PORT}`);
-})
+app.use(express.static(__dirname + '/../public'));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-})
-
-
-// connecting io
-const io = require('socket.io')(http);
+    res.sendFile(__dirname + '/../public/index.html');
+});
 
 io.on('connection', (socket) => {
-    console.log('A user connected...');
+    console.log('A user connected');
 
-    //listen for messages from client
     socket.on('message', (msg) => {
-        //broadcast the message to all other clients
         socket.broadcast.emit('message', msg);
-    })
+    });
 
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+});
 
-    socket.on('disconnect', (socket) => {
-        console.log('a user disconnected');
-    })
-})
-
-// api/index.js
-export default function handler(req, res) {
-    res.status(200).json({ message: 'Hello from serverless function' });
-  }
-  
+const PORT = process.env.PORT || 4000;
+server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});

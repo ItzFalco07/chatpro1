@@ -43,7 +43,7 @@ function AppendMessage(type, msg) {
     }
 
 
-    // scrollToBottom();
+    scrollToBottom();
 
 }
 
@@ -51,7 +51,7 @@ function AppendMessage(type, msg) {
 
 socket.on('message', (msg) => {
     AppendMessage('incoming', msg);
-    // scrollToBottom();
+    scrollToBottom();
 })
 
 
