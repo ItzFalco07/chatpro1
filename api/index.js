@@ -4,7 +4,7 @@ const { Server } = require('socket.io');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-
+let count = 0;
 app.use(express.static(__dirname + '/../public'));
 
 app.get('/', (req, res) => {
@@ -13,13 +13,16 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('A user connected');
-
+    count+= 1;
+    io.emit('updateCount', count);
     socket.on('message', (msg) => {
         socket.broadcast.emit('message', msg);
     });
 
     socket.on('disconnect', () => {
         console.log('User disconnected');
+        count-=1;
+        io.emit('updateCount', count);
     });
 });
 
