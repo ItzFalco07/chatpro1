@@ -6,24 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Pro</title>
     <link rel="shortcut icon" href="./logo.jpeg" type="image/x-icon">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"
+    />
     <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
+    
     <div class="chat__section">
         <div class="brand">
             <img height="40" src="./logo.jpeg" alt="">
-            <h1>chatogram - <div id="red-circle"></div>  live community chatting</h1>
+            <h1>chat pro</h1>
             <div class="users">🔽</div>
         </div>
-        <div class="message__area">
-            <div id="beware">
-                Chat in this section will be publically available 🔓
+        <div class="bg-wrapper ">
+            <div class="message__area">
+                <div id="beware">
+                    Chat in this section will be publically available 🔓
+                </div>
             </div>
-        </div>
-        <div class="bottom">
-            <input id="input" cols="30" rows="1" placeholder="Write a message..."></input>
-            <button id="send">⬆️</button>
+            <div class="bottom">
+                <input id="input" cols="30" rows="1" placeholder="Write a message..."></input>
+                <button id="send"><i class="ri-send-plane-2-fill sendIcon ri-xs"></i></button>
+            </div>
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>

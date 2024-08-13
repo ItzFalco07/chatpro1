@@ -6,11 +6,14 @@ const sentmusic = new Audio('sent.mp3')
 const arrivemusic = new Audio('arrive.mp3')
 const connectedusers = document.querySelector('.users');
 let user;
-
-do {
-    user = prompt('Enter your Name');
-    input.focus();
-} while (!user);
+if (!localStorage.getItem('user')) {
+    let user;
+    do {
+      user = prompt('enter your name');
+    } while (!user); // Continue looping if user is empty
+  
+    localStorage.setItem('user', user);
+  }
 
 input.addEventListener("keyup", (e) => {
     if (e.key === 'Enter') {
@@ -29,11 +32,11 @@ send.addEventListener('click', function () {
 
 socket.on('updateCount', (count) => {
     console.log('working');
-    connectedusers.innerHTML = `${count} Users Connected⬆️`;
+    connectedusers.innerHTML = `${count} Users Connected <i id="connected" class="ri-base-station-fill ri-xl"></i>`;
 });
 function sendMessage(input) {
     let msg = {
-        Name: user,
+        Name: localStorage.getItem('user'),
         Message: input,
     }
 
